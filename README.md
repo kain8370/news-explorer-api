@@ -1,1 +1,1 @@
-# news-explorer-api
+# https://api.kain-news.ru
