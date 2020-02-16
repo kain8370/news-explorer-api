@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const limiter = require('./middlewares/limiter');
 const router = require('./routes/index');
-const NotFoundError = require('./errors/not-found-error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const handlerErrors = require('./errors/handler-errors');
 
@@ -27,10 +26,7 @@ mongoose.connect(NODE_ENV === 'production' ? process.env.Mongo : 'mongodb://loca
 
 app.use(cookieParser());
 app.use(requestLogger);
-app.use('/', router);
-app.use('/*', (req, res, next) => {
-  next(new NotFoundError('Запрашиваемый ресурс не найден!'));
-});
+app.use(router);
 
 app.use(errorLogger);
 app.use(errors());
