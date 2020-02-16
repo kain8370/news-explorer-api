@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const articlesRouter = require('../routes/articles');
-const getUser = require('../routes/users');
-const createUser = require('../routes/signup');
-const login = require('../routes/signin');
+const articlesRouter = require('./articles');
+const getUser = require('./users');
+const createUser = require('./signup');
+const login = require('./signin');
 const auth = require('../middlewares/auth');
 
 router.use('/signup', createUser);
