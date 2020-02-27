@@ -28,11 +28,6 @@ app.use(cookieParser());
 app.use(requestLogger);
 app.use(router);
 
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
-
 app.use(errorLogger);
 app.use(errors());
 app.use(handlerErrors);
