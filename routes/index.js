@@ -7,12 +7,18 @@ const login = require('./signin');
 const auth = require('../middlewares/auth');
 const NotFoundError = require('../errors/not-found-error');
 
+const corsOption = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
 
-router.use('/signup', cors, createUser);
-router.use('/signin', cors, login);
-router.use('/users/me', cors, auth, getUser);
-router.use('/articles', cors, auth, articlesRouter);
-router.use('/*', cors, (req, res, next) => {
+router.use('/signup', cors(corsOption), createUser);
+router.use('/signin', cors(corsOption), login);
+router.use('/users/me', cors(corsOption), auth, getUser);
+router.use('/articles', cors(corsOption), auth, articlesRouter);
+router.use('/*', cors(corsOption), (req, res, next) => {
   next(new NotFoundError('Запрашиваемый ресурс не найден!'));
 });
 
