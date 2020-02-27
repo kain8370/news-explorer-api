@@ -11,12 +11,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const handlerErrors = require('./errors/handler-errors');
 
 const { NODE_ENV, PORT = 3000 } = process.env;
-const allowedCors = [
-  'github.com',
-  'kain-news.ru',
-  'localhost:8080',
-  'localhost:3000',
-];
 
 const app = express();
 app.use(helmet());
@@ -35,10 +29,7 @@ app.use(requestLogger);
 app.use(router);
 
 app.use(function(req, res, next) {
-  const { origin } = req.headers;
-  if (allowedCors.includes(origin)) {
-      res.header('Access-Control-Allow-Origin', origin);
-  }
+  res.header('Access-Control-Allow-Origin', '*');
   next();
 });
 
