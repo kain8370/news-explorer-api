@@ -12,6 +12,7 @@ const corsOption = {
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
   optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 router.use('/signup', cors(corsOption), createUser);
