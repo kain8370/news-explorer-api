@@ -4,11 +4,21 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const limiter = require('./middlewares/limiter');
 const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const handlerErrors = require('./errors/handler-errors');
+
+
+const corsOption = {
+  origin: '*',
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: 'Content-Type, Authorization',
+};
 
 const { NODE_ENV, PORT = 3000 } = process.env;
 
@@ -23,6 +33,8 @@ mongoose.connect(NODE_ENV === 'production' ? process.env.Mongo : 'mongodb://loca
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+app.use(cors(corsOption));
 
 app.use(cookieParser());
 app.use(requestLogger);
