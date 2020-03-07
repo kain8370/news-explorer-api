@@ -11,15 +11,6 @@ const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const handlerErrors = require('./errors/handler-errors');
 
-
-const corsOption = {
-  origin: '*',
-  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: 'Content-Type, Authorization',
-};
-
 const { NODE_ENV, PORT = 3000 } = process.env;
 
 const app = express();
@@ -34,7 +25,7 @@ mongoose.connect(NODE_ENV === 'production' ? process.env.Mongo : 'mongodb://loca
   useFindAndModify: false,
 });
 
-app.use(cors(corsOption));
+app.use(cors());
 
 app.use(cookieParser());
 app.use(requestLogger);
