@@ -40,7 +40,8 @@ function login(req, res, next) {
         throw new BadRequestError('Неправильна почта или пароль!');
       }
       const token = jwt.sign({ _id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-      return res.send({ token });
+      res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true });
+      res.send({ token });
     })
     .catch(next);
 }
