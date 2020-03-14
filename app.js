@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const limiter = require('./middlewares/limiter');
 const router = require('./routes/index');
@@ -23,6 +24,8 @@ mongoose.connect(NODE_ENV === 'production' ? process.env.Mongo : 'mongodb://loca
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+app.use(cors());
 
 app.use(cookieParser());
 app.use(requestLogger);
